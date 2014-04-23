@@ -1,0 +1,26 @@
+<%= form_for cat do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+
+  <%= f.label :age %>
+  <%= f.text_field :age %>
+  <br>
+
+  <%= f.label :birth_date %>
+  <%= f.date_field :birth_date %>
+  <br>
+
+  <%= f.label :color %>
+  <%= f.select :color, options_for_select(['red', 'cream', 'chocolate',             'tabby', 'calico'], selected: cat.color) %>
+  <br>
+
+  <%= f.radio_button(:sex, 'F') %>
+  <%= label(:sex_F, "Female")%>
+
+  <%= f.radio_button(:sex, 'M') %>
+  <%= label(:sex_M, "Male")%>
+
+  <%= f.submit %>
+
+<% end %>
