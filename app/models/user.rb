@@ -5,20 +5,18 @@
 #  id              :integer          not null, primary key
 #  user_name       :string(255)      not null
 #  password_digest :string(255)      not null
-#  session_token   :string(255)      not null
 #  created_at      :datetime
 #  updated_at      :datetime
 #
 
-
 class User < ActiveRecord::Base
-  validates :user_name, :password_digest, :session_token, presence: true
-  validates :user_name, :session_token, uniqueness: true
+  validates :user_name, :password_digest, presence: true
+  validates :user_name, uniqueness: true
   validates :password, { length: { minimum: 6, allow_nil: true } }
-  before_validation :ensure_session_token
 
   has_many :cats
   has_many :cat_rental_requests
+  has_many :sessions
 
   attr_reader :password
 
@@ -28,12 +26,6 @@ class User < ActiveRecord::Base
     nil
   end
 
-  def reset_session_token!
-    self.session_token = SecureRandom.hex
-    self.save!
-    session_token
-  end
-
   def password=(plain_text)
     @password = plain_text
     self.password_digest = BCrypt::Password.create(plain_text)
@@ -41,9 +33,5 @@ class User < ActiveRecord::Base
 
   def is_password?(plain_text)
     BCrypt::Password.new(password_digest).is_password?(plain_text)
-  end
-
-  def ensure_session_token
-    self.session_token ||= SecureRandom.hex
   end
 end

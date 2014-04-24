@@ -1,0 +1,4 @@
+# verify user exisist (username/password works)
+# create a Session object
+# save that object's token and user id to the sessions table
+# save give token to client
