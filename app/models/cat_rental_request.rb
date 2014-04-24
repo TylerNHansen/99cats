@@ -9,10 +9,11 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  status     :string(255)
+#  user_id    :integer
 #
 
 class CatRentalRequest < ActiveRecord::Base
-  validates :cat_id, :start_date, :end_date, :status, presence: true
+  validates :cat_id, :start_date, :end_date, :status, :user_id, presence: true
   validates_date :start_date, :end_date
   validates :status, inclusion: { in: %w(PENDING APPROVED DENIED) }
   validates :start_date, :end_date, :timeliness =>
@@ -22,6 +23,7 @@ class CatRentalRequest < ActiveRecord::Base
   belongs_to :cat
 
   before_validation :set_defaults
+  belongs_to :user
 
   def approve!
     unless overlapping_approved_requests.empty? && self.status == 'PENDING'

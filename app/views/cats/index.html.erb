@@ -6,5 +6,6 @@
     <li>Birth Date: <%= cat.birth_date %></li>
     <li>Color: <%= cat.color %></li>
     <li>Sex: <%= cat.sex %></li>
+    <%= link_to 'View this cat!', cat_url(cat)%>
   </ul>
 <% end %>

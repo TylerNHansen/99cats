@@ -7,6 +7,11 @@ Manycats::Application.routes.draw do
     as: :approve_cat_rental_request
   post 'cat_rental_requests/:id/deny', to: 'cat_rental_requests#deny',
     as: :deny_cat_rental_request
+
+  resources :users, only: [:new, :create]
+  resource :session
+
+  root to: 'cats#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

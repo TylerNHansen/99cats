@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'validates_timeliness', '~> 3.0'
 
+gem 'bcrypt'
+
 group :development do
   gem 'annotate'
   gem 'better_errors'

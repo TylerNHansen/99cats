@@ -8,6 +8,23 @@
 </head>
 <body>
 
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <%= error %>
+    <% end %>
+  <% end %>
+
+  <%= flash[:notice] %>
+
+  <% if logged_in? %>
+    Welcome <%= current_user.user_name %>
+    <%= button_to "Sign Out", session_url, :method => :delete %>
+  <% else %>
+    <%= link_to "Login", new_session_url %>
+    <%= link_to "Sign Up", new_user_url %>
+  <% end %>
+  <%= link_to "View all cats", root_url %> <%= link_to "Add a cat", new_cat_url %>
+
 <%= yield %>
 
 </body>

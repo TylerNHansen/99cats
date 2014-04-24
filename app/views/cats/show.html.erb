@@ -9,8 +9,8 @@
   <br>
 
   <% @cat.cat_rental_requests.sort_by { |r| r.start_date }.each do |request| %>
-    <%= "#{request.start_date} #{request.end_date} #{request.status}" %>
-    <% if request.status == 'PENDING' %>
+    <%= "#{request.start_date} #{request.end_date} #{request.status} #{request.user.user_name}"%>
+    <% if request.status == 'PENDING' && @cat.user_id == current_user.id %>
       <%= button_to 'Approve', approve_cat_rental_request_url(request) %>
       <%= button_to 'Deny', deny_cat_rental_request_url(request) %>
     <% end %>
