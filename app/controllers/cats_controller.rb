@@ -4,6 +4,10 @@ class CatsController < ApplicationController
     render :index
   end
 
+  def new
+    render :new
+  end
+
   def show
     @cat = Cat.find(params[:id])
     render :show

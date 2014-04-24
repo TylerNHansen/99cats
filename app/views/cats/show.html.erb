@@ -4,4 +4,16 @@
   <li>Birth Date: <%= @cat.birth_date %></li>
   <li>Color: <%= @cat.color %></li>
   <li>Sex: <%= @cat.sex %></li>
+  <%= link_to 'Rent this cat!', new_cat_rental_request_url %>
+  <br>
+  <br>
+
+  <% @cat.cat_rental_requests.sort_by { |r| r.start_date }.each do |request| %>
+    <%= "#{request.start_date} #{request.end_date} #{request.status}" %>
+    <% if request.status == 'PENDING' %>
+      <%= button_to 'Approve', approve_cat_rental_request_url(request) %>
+      <%= button_to 'Deny', deny_cat_rental_request_url(request) %>
+    <% end %>
+    <br>
+  <% end %>
 </ul>

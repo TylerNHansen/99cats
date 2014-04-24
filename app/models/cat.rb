@@ -18,4 +18,6 @@ class Cat < ActiveRecord::Base
   validates_date :birth_date
   validates :sex, inclusion: { in: %w(M F)}
   validates :color, inclusion: { in: %w(red cream chocolate tabby calico)}
+
+  has_many :cat_rental_requests
 end
