@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
   def login!(user)
-    session[:token] = Session.make_session(user.id)
+    device_name = request.env["HTTP_USER_AGENT"]
+    session[:token] = Session.make_session(user.id, device_name)
     @current_user = user
   end
 

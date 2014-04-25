@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_action :require_logged_out
-  skip_before_action :require_logged_out, only: [:destroy]
+  skip_before_action :require_logged_out, only: [:destroy, :index, :destroy_other]
 
   def new
     @user = User.new
@@ -21,6 +21,21 @@ class SessionsController < ApplicationController
   def destroy
     logout
     redirect_to new_session_url
+  end
+
+  def destroy_other
+    Session.find_by_id(params[:id]).destroy
+    if logged_in?
+      @sessions = current_user.sessions
+      render :index
+    else
+      redirect_to root_url
+    end
+  end
+
+  def index
+    @sessions = current_user.sessions
+    render :index
   end
 
   private

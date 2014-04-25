@@ -1,0 +1,9 @@
+<h1>Devices currently logged in:</h1>
+
+<% @sessions.each do |session| %>
+
+<li><%= session.device_name%>
+<%= button_to "logout device", kill_session_url(session.id), method: 'delete' %>
+</li>
+
+<% end %>
